@@ -43,3 +43,12 @@ documentation/UserManual/*.tmp
 documentation/UserManual/*.toc
 documentation/UserManual/*.xref
 documentation/UserManual/*.xref
+
+
+# other trash (xmake, etc.)
+#####################
+.cache/
+.vscode/
+.xmake/
+compile_commands.json
+build

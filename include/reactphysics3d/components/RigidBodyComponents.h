@@ -51,7 +51,9 @@ enum class BodyType;
 /// DYNAMIC : A dynamic body has non-zero mass, non-zero velocity determined by forces and its
 ///           position is determined by the physics engine. A dynamic body can collide with other
 ///           dynamic, static or kinematic bodies.
-enum class BodyType {STATIC, KINEMATIC, DYNAMIC};
+/// CHARACTER : XDXDXDX, idk, it's very stupid and bad vay to add this type. I just disable velocity update
+///             in DynamicsSystem::updateBodiesState();
+enum class BodyType {STATIC, KINEMATIC, DYNAMIC, CHARACTER};
 
 // Class RigidBodyComponents
 /**

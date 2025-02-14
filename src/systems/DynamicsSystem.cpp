@@ -24,6 +24,7 @@
 ********************************************************************************/
 
 // Libraries
+#include "reactphysics3d/mathematics/Vector3.h"
 #include <reactphysics3d/systems/DynamicsSystem.h>
 #include <reactphysics3d/body/RigidBody.h>
 #include <reactphysics3d/engine/PhysicsWorld.h>
@@ -79,8 +80,19 @@ void DynamicsSystem::updateBodiesState() {
     for (uint32 i=0; i < nbRigidBodyComponents; i++) {
 
         // Update the linear and angular velocity of the body
-        mRigidBodyComponents.mLinearVelocities[i] = mRigidBodyComponents.mConstrainedLinearVelocities[i];
-        mRigidBodyComponents.mAngularVelocities[i] = mRigidBodyComponents.mConstrainedAngularVelocities[i];
+        const auto type = mRigidBodyComponents.mBodyTypes[i];
+        if (type != BodyType::CHARACTER) {
+            mRigidBodyComponents.mLinearVelocities[i] = mRigidBodyComponents.mConstrainedLinearVelocities[i];
+            mRigidBodyComponents.mAngularVelocities[i] = mRigidBodyComponents.mConstrainedAngularVelocities[i];
+        } else {
+            const Vector3 constrainedLinearVelocity = mRigidBodyComponents.mConstrainedLinearVelocities[i];
+            if (std::abs(constrainedLinearVelocity.x) < 0.001) 
+                mRigidBodyComponents.mLinearVelocities[i].x = 0;
+            if (std::abs(constrainedLinearVelocity.y) < 0.001) 
+                mRigidBodyComponents.mLinearVelocities[i].y = 0;
+            if (std::abs(constrainedLinearVelocity.z) < 0.001) 
+                mRigidBodyComponents.mLinearVelocities[i].z = 0;
+        }        
 
         // Update the position of the center of mass of the body
         mRigidBodyComponents.mCentersOfMassWorld[i] = mRigidBodyComponents.mConstrainedPositions[i];

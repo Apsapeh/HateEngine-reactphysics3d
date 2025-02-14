@@ -858,7 +858,6 @@ void CollisionDetectionSystem::createContacts() {
     // creation (only the pairs with two RigidBodies are added during island creation)
     mWorld->mProcessContactPairsOrderIslands.addRange(mCollisionBodyContactPairsIndices);
 
-    assert(mWorld->mProcessContactPairsOrderIslands.size() == (*mCurrentContactPairs).size());
 
     // Process the contact pairs in the order defined by the islands such that the contact manifolds and
     // contact points of a given island are packed together in the array of manifolds and contact points

@@ -1,7 +1,7 @@
 <h1 align="center">
   <a href="https://www.reactphysics3d.com"><img src="https://github.com/DanielChappuis/reactphysics3d/blob/62e17155e3fc187f4a90f7328c1154fc47e41d69/documentation/UserManual/images/ReactPhysics3DLogo.png" alt="ReactPhysics3D" width="300"></a>
   <br>
-  ReactPhysics3D
+  ReactPhysics3D (0.9.0)
   <br>
 </h1>
 
@@ -21,6 +21,15 @@
 <p align="center">
   <img src="https://github.com/DanielChappuis/reactphysics3d/blob/images/showreel.gif?raw=true" alt="Drawing" />
 </p>
+
+## :fork_and_knife: Why it's forked
+
+Because HateEngine is only a C++11, but newer versions of ReactPhysics3D use C++17 features.
+
+#### Changes
+ - Removed exceptions (unsafe)
+ - Added the Character body type (very stupid)
+ - Small bug fixes
 
 ## :dart: Features
 

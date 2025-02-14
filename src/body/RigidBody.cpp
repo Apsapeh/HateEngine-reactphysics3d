@@ -24,6 +24,8 @@
 ********************************************************************************/
 
 // Libraries
+#include "reactphysics3d/components/RigidBodyComponents.h"
+#include "reactphysics3d/mathematics/Vector3.h"
 #include <reactphysics3d/body/RigidBody.h>
 #include <reactphysics3d/engine/PhysicsCommon.h>
 #include <reactphysics3d/collision/shapes/CollisionShape.h>
@@ -84,6 +86,15 @@ void RigidBody::setType(BodyType type) {
         // Reset the inverse mass and inverse inertia tensor to zero
         mWorld.mRigidBodyComponents.setMassInverse(mEntity, decimal(0));
         mWorld.mRigidBodyComponents.setInverseInertiaTensorLocal(mEntity, Vector3::zero());
+    }
+    else if (type == BodyType::CHARACTER) {
+        mWorld.mRigidBodyComponents.setInverseInertiaTensorLocal(mEntity, Vector3::zero());
+
+        const decimal mass = mWorld.mRigidBodyComponents.getMass(mEntity);
+        if (mass > decimal(0.0)) 
+            mWorld.mRigidBodyComponents.setMassInverse(mEntity, decimal(1.0) / mass) ;
+        else 
+            mWorld.mRigidBodyComponents.setMassInverse(mEntity, decimal(0.0));
     }
     else {  // If it is a dynamic body
 
@@ -513,7 +524,7 @@ void RigidBody::updateMassFromColliders() {
 
     // If it is a dynamic body
     const BodyType type = mWorld.mRigidBodyComponents.getBodyType(mEntity);
-    if (type == BodyType::DYNAMIC) {
+    if (type == BodyType::DYNAMIC || type == BodyType::CHARACTER) {
 
         // Compute the inverse mass
         if (totalMass > decimal(0.0)) {
@@ -586,7 +597,7 @@ void RigidBody::updateMassPropertiesFromColliders() {
     mWorld.mRigidBodyComponents.setMass(mEntity, totalMass);
 
     // If it is a dynamic body
-    if (type == BodyType::DYNAMIC) {
+    if (type == BodyType::DYNAMIC || type == BodyType::CHARACTER) {
 
         // Compute the inverse mass
         if (totalMass > decimal(0.0)) {
@@ -620,7 +631,7 @@ void RigidBody::setMass(decimal mass) {
 
     // If it is a dynamic body
     const BodyType type = mWorld.mRigidBodyComponents.getBodyType(mEntity);
-    if (type == BodyType::DYNAMIC) {
+    if (type == BodyType::DYNAMIC || type == BodyType::CHARACTER) {
 
         if (mass > decimal(0.0)) {
             mWorld.mRigidBodyComponents.setMassInverse(mEntity, decimal(1.0) / mass);

@@ -307,7 +307,6 @@ AABB PhysicsWorld::getWorldAABB(const Collider* collider) const {
  * @param timeStep The amount of time to step the simulation by (in seconds)
  */
 void PhysicsWorld::update(decimal timeStep) {
-
 #ifdef IS_RP3D_PROFILING_ENABLED
 
     // Increment the frame counter of the profiler
