@@ -12,6 +12,7 @@ target("reactphysics3d")
         set_optimize("none")
     elseif is_mode("release") then
         set_strip("all")
-        set_fpmodels("fast")
-        set_optimize("aggressive")
+        --set_fpmodels("fast")
+        --set_optimize("aggressive")
+        set_optimize("none")
     end
